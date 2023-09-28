@@ -32,6 +32,8 @@ func PrintProgramScope(programScope ProgramData, outputFlags string, delimiter s
 				line += scopeElement.Category + delimiter
 			case 'u':
 				line += programScope.Url + delimiter
+			case 'j':
+				line += fmt.Sprintf("{\"target\":\"%s\",\"description\":\"%s\",\"category\":\"%s\",\"url\":\"%s\"}%s", scopeElement.Target, scopeElement.Description, scopeElement.Category, programScope.Url, delimiter)
 			default:
 				log.Fatal("Invalid print flag")
 			}
