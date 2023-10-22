@@ -33,7 +33,7 @@ func PrintProgramScope(programScope ProgramData, outputFlags string, delimiter s
 			case 'u':
 				line += programScope.Url + delimiter
 			case 'j':
-				line += fmt.Sprintf("{\"target\":\"%s\",\"description\":\"%s\",\"category\":\"%s\",\"url\":\"%s\"}%s", scopeElement.Target, scopeElement.Description, scopeElement.Category, programScope.Url, delimiter)
+				line += fmt.Sprintf("{\"target\":\"%s\",\"url\":\"%s\"}%s", sanitize(scopeElement.Target), sanitize(programScope.Url), delimiter)
 			default:
 				log.Fatal("Invalid print flag")
 			}
@@ -49,4 +49,11 @@ func PrintProgramScope(programScope ProgramData, outputFlags string, delimiter s
 	if len(lines) > 0 {
 		fmt.Println(lines)
 	}
+}
+
+// function to sanitize quotes and newlines
+func sanitize(input string) string {
+	input = strings.ReplaceAll(input, "\n", " ")
+	input = strings.ReplaceAll(input, "\"", "'")
+	return input
 }
